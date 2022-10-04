@@ -1,0 +1,20 @@
+{
+  "name": "js2courseassignment",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/AudunTA/JS2CourseAssignment.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/AudunTA/JS2CourseAssignment/issues"
+  },
+  "homepage": "https://github.com/AudunTA/JS2CourseAssignment#readme"
+}
