@@ -1,100 +1,43 @@
-const form = document.querySelector("#login-form");
-const email = document.querySelector("#femail");
-const password = document.querySelector("#fpassword");
-const firstNameError = document.querySelector("#firstNameError");
-const validation = document.querySelector(".validationMessage");
-const url = "https://nf-api.onrender.com/api/v1";
-const options = {
-    headers: {
-      Authorization:
-        "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6InRlc3RVc2VyIiwiaWF0IjoxNjY0MjcyMjkzfQ.4M7-5-Rq8puXmvlTkQgw0ecUXEjvamfba89BRE1tXgk",
-    },
+const email = document.querySelector(".input_email");
+const password = document.querySelector(".input_password");
+const loginForm = document.querySelector(".login_form");
+const errorContainer = document.querySelector(".error_container");
+
+const baseUrl = "https://nf-api.onrender.com/api/v1";
+
+loginForm.addEventListener("submit", (e) => {
+  e.preventDefault();
+  const email = document.querySelector(".input_email").value;
+  const password = document.querySelector(".input_password").value;
+  const user = {
+    email: email,
+    password: password,
   };
-  
 
-form.addEventListener("submit", handleSubmit);
-
-function handleSubmit() {
-
-    event.preventDefault();
-
-    if((validateEmail(email.value) === true) && (email.value.length > 5)) {
-        emailError.style.display = "none";
-        console.log("inne");
-
-    } else {
-
-        emailError.innerHTML = `Please enter a valid email address.`;
-        emailError.style.display = "block";
-    }
-    //this checks if eveything is fine and will give the user a validation for the sent form
-    console.log(email.value.length > 0);
-    if(validateEmail(email.value)) {
-        console.log("JAAA");
-        validation.innerHTML = `<h2>the form has been sent</h2>`;
-        handleAPIFriends(email.value, password.value);
-
-
-    } else {
-        //if the user tries to resend after getting a valdation i remove the validation if the information is not correct.
-        validation.innerHTML = ``;
-    }
-}
-
-//check lenght function tha's called further up.
-function checkLen(value, len) {
-    if(value.trim().length > len)   {
-        //if the value.trim (removes spaces) is longer than the lenght it will return true.
-        console.log("true");
-        return true;
-    }
-    else {
-        //return false if not right.
-        return false;
-    }
-}
-
-//regex for email validation
-function validateEmail(email) {
-    console.log(email);
-    const regEx = /^([a-zA-Z0-9._%-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,6})*$/;
-    const matching = regEx.test(email);
-    console.log(matching);
-    //returns true or false
-    return matching;
-}
-
-async function handleAPIFriends(email, password) {
+  async function login(endpoint) {
     try {
-         console.log(email, password);
-    const data = JSON.stringify( {
-        email: email,
-        password: password,
+      const request = await fetch(`${baseUrl}${endpoint}`, {
+        method: "POST",
+        headers: {
+          "Content-type": "application/json; charset=UTF-8",
+        },
+        body: JSON.stringify(user),
       });
-      console.log(data);
-    const response = await fetch(
-        `${url}/social/auth/login`, {
-            method: 'post',
-            headers: {
-                'content-Type': 'application/json',
-              },
-        body: data,
-            });
-      const result = await response.json();
-      console.log(result);
+      const results = await request.json();
+      console.log(results);
 
-      localStorage.setItem('accessToken', result.accessToken);
-      localStorage.setItem('email', result.email);
-      localStorage.setItem('username', result.name);
-
-
-    } catch(e) {
-        console.log(e);
+      if (request.status === 200) {
+        window.location.href = "feed.html";
+        localStorage.setItem("accessToken", results.accessToken);
+        localStorage.setItem("email", results.email);
+        localStorage.setItem("name", results.name);
+        localStorage.setItem("id", results.id);
+      } else {
+        errorContainer.innerHTML = `<p>Wrong username or password</p>`;
+      }
+    } catch (e) {
+      console.log(e);
     }
-    finally {
-        window.location.assign("apitest.html");
-
-    }
-   
-      
-}
+  }
+  login("/social/auth/login");
+});
