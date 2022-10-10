@@ -99,12 +99,24 @@
     
                 <div class="card bg-glass">
                   <div class="card-body px-4 py-5 px-md-5">
-                    <h1 class="mb-3">Login</h1>
+                    <h1 class="mb-3 headline">Login</h1>
                     <form
                       action="profile.html"
                       class="row g-3 needs-validation login_form"
                       novalidate
                     >
+                      <div class="col-md-6">
+                        <label for="validationCustom02" class="form-label"
+                          >Username</label
+                        >
+                        <input
+                          type="text"
+                          class="form-control input_username username"
+                          id="validationCustom02"
+                          required
+                        />
+                        <div class="valid-feedback">Looks good!</div>
+                      </div>
                       <div class="col-md-6">
                         <label for="validationCustom02" class="form-label"
                           >Email</label

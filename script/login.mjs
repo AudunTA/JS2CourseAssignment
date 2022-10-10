@@ -41,3 +41,13 @@ loginForm.addEventListener("submit", (e) => {
   }
   login("/social/auth/login");
 });
+
+//------------------------------- create user -----------------------------
+
+const headline = documen.querySelector(".headline");
+const createAccount = document.querySelector(".create_account");
+
+createAccount.addEventListener("click" (e) =>{
+    e.preventDefault();
+    
+})
