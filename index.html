@@ -20,6 +20,7 @@
   rel="stylesheet"
   href="node_modules/bootstrap/dist/css/bootstrap.min.css"
 />
+<link rel="stylesheet" href="/css/stylesheet.css" />
 </head>
 <body>
     <body>
@@ -105,7 +106,7 @@
                       class="row g-3 needs-validation login_form"
                       novalidate
                     >
-                      <div class="col-md-6">
+                      <div class="col-md-6 username">
                         <label for="validationCustom02" class="form-label"
                           >Username</label
                         >
@@ -157,10 +158,12 @@
                       </div>
                     </form>
                     <hr>
-                    <div class="create_account">
-                      <p>or create account</p>
-                      <button class="create_account btn btn-primary">Create Account</button>
-                    </div>
+                    <form class="create-acc-form" action="">
+                      <div class="create_account">
+                        <p>or create account</p>
+                        <button class="create_account btn btn-primary" type="submit">Create Account</button>
+                      </div>
+                    </form>
                   </div>
                 </div>
               </div>

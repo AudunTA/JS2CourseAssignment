@@ -10848,6 +10848,22 @@ body {
   margin-top: 0;
 }
 
+/* SETT INN I SCSS FILEN - START */
+
+.username{
+  /* display:none */
+}
+
+
+
+
+
+
+
+/* SETT INN I SCSS FILEN - SLUTT */
+
+
+
 @media screen and (max-width: 990px) {
   .testing {
     display: flex;
