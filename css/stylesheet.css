@@ -10858,7 +10858,15 @@ body {
 
 .acc_created_success {
   color: white;
-  padding: 25px;
+}
+
+.bg-danger {
+  margin: 10px;
+  color: white;
+}
+
+.bg-danger > * {
+  font-size: 1rem;
 }
 
 @media screen and (max-width: 990px) {
