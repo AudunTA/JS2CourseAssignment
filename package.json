@@ -1,11 +1,14 @@
 {
   "name": "javascriptca",
   "version": "1.0.0",
-  "description": "",
   "main": "index.js",
   "scripts": {
     "build": "sass src/scss:dist/css",
-    "watch": "sass --watch src/scss:dist/css & live-server"
+    
+    "build" : "sass css/stylesheet.css",
+    "watch": "sass --watch src/scss:dist/css & live-server",
+    "watch": "sass --watch css/css:dist/css & live-server"
+    
   },
   "keywords": [],
   "author": "",
@@ -15,6 +18,15 @@
   },
   "devDependencies": {
     "live-server": "^1.2.2",
-    "sass": "^1.54.9"
-  }
+    "sass": "^1.55.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/AudunTA/JS2CourseAssignment.git"
+  },
+  "bugs": {
+    "url": "https://github.com/AudunTA/JS2CourseAssignment/issues"
+  },
+  "homepage": "https://github.com/AudunTA/JS2CourseAssignment#readme",
+  "description": ""
 }

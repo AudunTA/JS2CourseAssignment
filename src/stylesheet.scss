@@ -86,6 +86,22 @@ $grid-breakpoints: (
     margin-top: 0;
 }
 
+.username {
+    display: none;
+}
+
+.remove_btn{
+    display:none
+}
+
+.acc_created_success{
+    color:white;
+    padding: 25px;
+}
+
+h1{
+    
+}
 
 @media screen and (max-width: 990px) {
     .testing {

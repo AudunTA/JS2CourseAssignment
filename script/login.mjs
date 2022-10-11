@@ -45,16 +45,24 @@ loginForm.addEventListener("submit", (e) => {
 //------------------------------- Create user -----------------------------
 
 const headline = document.querySelector(".headline");
-const createAccount = document.querySelector(".create_account");
+const createAccount = document.querySelector(".create_account_btn");
 const createAccForm = document.querySelector(".create-acc-form");
+const usernameDiv = document.querySelector(".username");
+const createAccBtnNext = document.querySelector(".create_account_next_btn");
+const createAccNextForm = document.querySelector(".create-acc-next-form");
+const btnLogin = document.querySelector(".btn_login");
+const createAccountSuccess = document.querySelector(".create_account_success");
 
 createAccount.addEventListener("click", (e) => {
   e.preventDefault();
   headline.innerHTML = "<h1>Create Account</h1>";
-  createAccount.classList.remove("username");
+  usernameDiv.classList.remove("username");
+  createAccount.classList.add("remove_btn");
+  createAccBtnNext.classList.remove("remove_btn");
+  btnLogin.classList.add("remove_btn");
 });
 
-createAccForm.addEventListener("submit", (e) => {
+createAccNextForm.addEventListener("submit", (e) => {
   e.preventDefault();
   const email = document.querySelector(".input_email").value;
   const password = document.querySelector(".input_password").value;
@@ -77,7 +85,18 @@ createAccForm.addEventListener("submit", (e) => {
       });
       const results = await request.json();
       console.log(results);
+      console.log(request);
       console.log(request.status);
+      console.log(results.message);
+      if (request.status === 200 || request.status === 201) {
+        createAccountSuccess.innerHTML = `<div class="acc_created_success bg-success card"><h2>Account created<h2>`;
+        createAccBtnNext.classList.add("remove_btn");
+        usernameDiv.classList.add("username");
+        btnLogin.classList.remove("remove_btn");
+        headline.innerHTML = "<h1>Login</h1>";
+      } else {
+        createAccountSuccess.innerHTML = `<div class="bg-danger card"><h2>${results.message}</h2></div>`;
+      }
     } catch (e) {
       console.log("this is the error:" + e);
     }

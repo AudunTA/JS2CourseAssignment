@@ -10848,21 +10848,18 @@ body {
   margin-top: 0;
 }
 
-/* SETT INN I SCSS FILEN - START */
-
-.username{
-  /* display:none */
+.username {
+  display: none;
 }
 
+.remove_btn {
+  display: none;
+}
 
-
-
-
-
-
-/* SETT INN I SCSS FILEN - SLUTT */
-
-
+.acc_created_success {
+  color: white;
+  padding: 25px;
+}
 
 @media screen and (max-width: 990px) {
   .testing {
