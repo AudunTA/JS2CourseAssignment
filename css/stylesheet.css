@@ -10758,8 +10758,9 @@ textarea.form-control-lg {
     display: none !important;
   }
 }
-body {
-  margin: 0px;
+body, html {
+  margin: 0;
+  padding: 0;
   background-color: #E8E8E8;
 }
 
@@ -10782,6 +10783,11 @@ body {
 .head {
   background-color: #0A66C2;
   margin: 5px;
+}
+
+.container {
+  margin-top: 0px;
+  padding-top: 0px;
 }
 
 #forsidebilde {
@@ -10848,6 +10854,39 @@ body {
   margin-top: 0;
 }
 
+.post-comment {
+  background-color: #ECECEC;
+}
+
+.username {
+  display: none;
+}
+
+.remove_btn {
+  display: none;
+}
+
+.acc_created_success {
+  color: white;
+}
+
+.bg-danger {
+  margin: 10px;
+  color: white;
+}
+
+.bg-danger > * {
+  font-size: 1rem;
+}
+
+@media screen and (min-width: 800px) {
+  .sticky-top {
+    top: 0.5em;
+  }
+  .positioning {
+    top: 103px;
+  }
+}
 @media screen and (max-width: 990px) {
   .testing {
     display: flex;
