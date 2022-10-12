@@ -13,20 +13,20 @@ const email = localStorage.getItem("email");
 const container = document.querySelector(".container-content");
 const url = "https://nf-api.onrender.com/api/v1";
 
-const DOMUsername = document.querySelector(".username");
+const DOMUsername = document.querySelector(".user_name");
 DOMUsername.innerHTML = user_name;
 const DOMAvatar = document.querySelector("#avatar-img");
-DOMAvatar.innerHTML = `<img src="/img/profile.jfif" id="profile-picture" "id="profile-picture">`
+DOMAvatar.innerHTML = `<img src="/img/profile.jfif" id="profile-picture" "id="profile-picture">`;
 const DOMFollowers = document.querySelector("#follower-count");
 const DOMFollowing = document.querySelector("#following-count");
 
 const options = {
   headers: {
-    'content-Type': 'application/json',
+    "content-Type": "application/json",
     Authorization: `Bearer ${token}`,
   },
 };
-console.log(options)
+console.log(options);
 async function getProfile() {
   try {
     console.log(user_name);
@@ -62,10 +62,9 @@ async function handleAPI() {
       let icon = "";
       if (result[i].author.name === user_name) {
         console.log("INNE");
-        icon = `<button class="edit_btn btn btn-warning" id="${result[i].id}">edit</button><button class="delete_btn btn btn-danger" id="${result[i].id}">Delete</button>`
+        icon = `<button class="edit_btn btn btn-warning" id="${result[i].id}">edit</button><button class="delete_btn btn btn-danger" id="${result[i].id}">Delete</button>`;
       }
-      container.innerHTML += 
-          `<div class="feed-content rounded" id="post_${result[i].id}">
+      container.innerHTML += `<div class="feed-content rounded" id="post_${result[i].id}">
           <div class="d-flex justify-content-between">
           <div class="content-left d-flex">
           <img src="${avatar}" onerror="this.src = '/img/profile.jfif';" id="feed-profile-pic" />
@@ -92,29 +91,28 @@ ${icon}
           </div>
           <span id ="comment_${result[i].id}"></span>
           </div>`;
-          console.log(icon);
+      console.log(icon);
     }
   } catch (e) {
   } finally {
     const btnnEdit = document.querySelectorAll(".edit_btn");
-    for(let i = 0; i <btnnEdit.length; i++) {
+    for (let i = 0; i < btnnEdit.length; i++) {
       btnnEdit[i].addEventListener("click", () => {
         let postID = event.target.id;
         updatePost(postID);
-      })
+      });
     }
     const btnnDelete = document.querySelectorAll(".delete_btn");
-    for(let i = 0; i <btnnDelete.length; i++) {
+    for (let i = 0; i < btnnDelete.length; i++) {
       btnnDelete[i].addEventListener("click", () => {
         let postID = event.target.id;
         deletePost(postID);
-      })
+      });
     }
 
     console.log("FINALLY");
 
     const allComments = document.querySelectorAll(".view_comments");
-    
 
     for (let j = 0; j < allComments.length; j++) {
       allComments[j].addEventListener("click", () => {
@@ -122,10 +120,7 @@ ${icon}
         displayComments(postID);
       });
     }
-   
-    }
-
-  
+  }
 }
 handleAPI();
 
@@ -188,44 +183,42 @@ async function displayComments(postid) {
   }
 }
 function postComment(post, commentContent) {
-  const data = JSON.stringify( {
-    body: commentContent
+  const data = JSON.stringify({
+    body: commentContent,
   });
-    //url fetch and post method
-    fetch(`${url}/social/posts/${post}/comment`, {
-    method: 'POST', 
+  //url fetch and post method
+  fetch(`${url}/social/posts/${post}/comment`, {
+    method: "POST",
     headers: {
       Authorization: `Bearer ${token}`,
-      'content-Type': 'application/json',
+      "content-Type": "application/json",
     },
     //data in the body
-    body: JSON.stringify( {
-      body : commentContent,
-    })
+    body: JSON.stringify({
+      body: commentContent,
+    }),
   })
     .then((response) => {
       if (response.ok === true) {
         //reloads page if comment is posted to update the display
-       document.location.reload (true); 
+        document.location.reload(true);
       }
       return response.json();
     })
     .then((Object) => {
       //failed
     })
-    .catch(error => console.log("error",  error));
+    .catch((error) => console.log("error", error));
 }
 async function updatePost(postid) {
   try {
+    const post_container = document.querySelector(`#post_${postid}`);
 
-  
-  const post_container = document.querySelector(`#post_${postid}`);
-
-   const values = await getPost(postid);
-   console.log(values.title);
-   console.log(values.body);
-   console.log(values.media);
-   post_container.innerHTML = `
+    const values = await getPost(postid);
+    console.log(values.title);
+    console.log(values.body);
+    console.log(values.media);
+    post_container.innerHTML = `
    <p>title</p>
    <input type="text" class="title_${postid}" value="${values.title}" id="input-post ">
    <p>tekst</p>
@@ -233,9 +226,9 @@ async function updatePost(postid) {
    <p>media</p>
    <input type="text" class="media_${postid}" value="${values.media}" id="input-post">
    <p class="oppdater_${postid}">OPPDATER</p>`;
-   } catch(e) {
+  } catch (e) {
     console.log("error", e);
-   } finally {
+  } finally {
     console.log(postid);
     const inputTitle = document.querySelector(`.title_${postid}`);
     const body = document.querySelector(`.body_${postid}`);
@@ -244,9 +237,8 @@ async function updatePost(postid) {
     console.log(btnUpdate);
     btnUpdate.addEventListener("click", () => {
       sendUpdate(postid, inputTitle.value, body.value, media.value);
-    })
-    
-   }
+    });
+  }
 }
 
 async function getPost(idPost) {
@@ -258,76 +250,71 @@ async function getPost(idPost) {
     const body = result.body;
     const media = result.media;
     console.log(title, body, media);
-    return {title, body, media};
-
-  } catch(e) {
-
+    return { title, body, media };
+  } catch (e) {
   } finally {
-
   }
 }
 
 function sendUpdate(postid, title, body, media) {
-
-    //url fetch and PUT method
-    fetch(`${url}/social/posts/${postid}`, {
-    method: 'PUT', 
+  //url fetch and PUT method
+  fetch(`${url}/social/posts/${postid}`, {
+    method: "PUT",
     headers: {
       Authorization: `Bearer ${token}`,
-      'content-Type': 'application/json',
+      "content-Type": "application/json",
     },
     //data in the body
-    body: JSON.stringify( {
+    body: JSON.stringify({
       title: title,
-    body: body,
-    media: media,
-    })
+      body: body,
+      media: media,
+    }),
   })
     .then((response) => {
       if (response.ok === true) {
         //reloads page if comment is posted to update the display
-       document.location.reload (true); 
+        document.location.reload(true);
       }
       return response.json();
     })
     .then((Object) => {
       //failed
     })
-    .catch(error => console.log("error",  error));
-  }
+    .catch((error) => console.log("error", error));
+}
 function deletePost(postid) {
-   //url fetch and PUT method
-   fetch(`${url}/social/posts/${postid}`, {
-    method: 'DELETE', 
+  //url fetch and PUT method
+  fetch(`${url}/social/posts/${postid}`, {
+    method: "DELETE",
     headers: {
       Authorization: `Bearer ${token}`,
-      'content-Type': 'application/json',
+      "content-Type": "application/json",
     },
-
   })
     .then((response) => {
       if (response.ok === true) {
         //reloads page if comment is posted to update the display
-       document.location.reload (true); 
+        document.location.reload(true);
       }
       return response.json();
     })
     .then((Object) => {
       //failed
     })
-    .catch(error => console.log("error",  error));
-  }
+    .catch((error) => console.log("error", error));
+}
 
-  async function findFriends() {
-    try{
-      const DOMFindfriends = document.querySelector(".friends-container");
-      const response = await fetch(`${url}/social/profiles`, options);
-      const result = await response.json();
-      console.log(result);
-      for( let i = 0; i < result.length; i++) {
-        const profile_name = result[i].name;
-        const profile_media = result[i].avatar;
-        DOMFindfriends.innerHTML += `            <div class="d-flex find-friends m-1">
+async function findFriends() {
+  try {
+    const DOMFindfriends = document.querySelector(".friends-container");
+    const response = await fetch(`${url}/social/profiles`, options);
+    const result = await response.json();
+    console.log(result);
+    for (let i = 0; i < result.length; i++) {
+      const profile_name = result[i].name;
+      const profile_media = result[i].avatar;
+      DOMFindfriends.innerHTML += `            <div class="d-flex find-friends m-1">
         <div class="p-2">
           <img src="${profile_media}"  onerror="this.src = '/img/profile.jfif';" id="find-friends-picutre">
         </div>
@@ -337,52 +324,46 @@ function deletePost(postid) {
         </div>
         <button class="m-2 btn btn-info btnConnect" id="${profile_name}">Connect</button>
       </div>`;
-          if(i === 5) {
+      if (i === 5) {
         break;
       }
-      }
-    
-    } catch(e) {
-
-    } finally{4
-      const btn_connect = document.querySelectorAll(".btnConnect");
-      for(let i = 0; i < btn_connect.length; i++) {
-        btn_connect[i].addEventListener("click", () => {
-          const followName = event.target.id;
-          console.log(followName);
-          followUser(followName);
-
-        })
-      }
+    }
+  } catch (e) {
+  } finally {
+    4;
+    const btn_connect = document.querySelectorAll(".btnConnect");
+    for (let i = 0; i < btn_connect.length; i++) {
+      btn_connect[i].addEventListener("click", () => {
+        const followName = event.target.id;
+        console.log(followName);
+        followUser(followName);
+      });
     }
   }
+}
 
-  findFriends();
+findFriends();
 
 function followUser(followName) {
-    try {
-        //url fetch and PUT method
-   fetch(`${url}/social/profiles/${followName}/follow`, {
-    method: 'PUT', 
-   options
-
-  })
-    .then((response) => {
-      if (response.ok === true) {
-        //reloads page if comment is posted to update the display
-       document.location.reload (true); 
-      }
-      return response.json();
+  try {
+    //url fetch and PUT method
+    fetch(`${url}/social/profiles/${followName}/follow`, {
+      method: "PUT",
+      options,
     })
-    .then((Object) => {
-      //failed
-    })
-    .catch(error => console.log("error",  error));
+      .then((response) => {
+        if (response.ok === true) {
+          //reloads page if comment is posted to update the display
+          document.location.reload(true);
+        }
+        return response.json();
+      })
+      .then((Object) => {
+        //failed
+      })
+      .catch((error) => console.log("error", error));
+  } catch (e) {
+    console.llog(e);
+  } finally {
   }
-catch(e) {
-      console.llog(e);
-    } finally {
-    } 
-
-    
-  }
+}
