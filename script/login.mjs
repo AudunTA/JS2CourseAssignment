@@ -83,11 +83,8 @@ createAccNextForm.addEventListener("submit", (e) => {
         },
         body: JSON.stringify(user),
       });
-      const results = await request.json();
-      console.log(results);
-      console.log(request);
       console.log(request.status);
-      console.log(results.message);
+      const results = await request.json();
       if (request.status === 200 || request.status === 201) {
         createAccountSuccess.innerHTML = `<div class="acc_created_success bg-success card"><h2>Account created<h2>`;
         createAccBtnNext.classList.add("remove_btn");
@@ -98,7 +95,7 @@ createAccNextForm.addEventListener("submit", (e) => {
         createAccountSuccess.innerHTML = `<div class="bg-danger card"><h2>${results.message}</h2></div>`;
       }
     } catch (e) {
-      console.log("this is the error:" + e);
+      console.log("This is the error: " + e);
     }
   }
   register("/social/auth/register");
